@@ -64,3 +64,24 @@ func (r *workerRepository) InsertMessage() error {
 	fmt.Println(result)
 	return nil
 }
+
+func (r *workerRepository) GetMessage() (d.MessageResponse, error) {
+	var (
+		message    d.Message
+		messageAll d.MessageResponse
+	)
+	rows, err := r.db.Model(&chat{}).Rows()
+	if err != nil {
+		return messageAll, err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		fmt.Println(rows)
+		r.db.ScanRows(rows, &message)
+		fmt.Println("--------")
+		fmt.Println(message)
+		messageAll.Data = append(messageAll.Data, message)
+	}
+	fmt.Println(messageAll)
+	return messageAll, nil
+}

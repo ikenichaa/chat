@@ -112,8 +112,6 @@ func (h *Handler) GetAll(c echo.Context) error {
 
 func (h *Handler) InsertMessage(c echo.Context) error {
 	var req = Chat{}
-	var all = AllChat{}
-	fmt.Println(all)
 	tmp := echo.Map{}
 	c.Bind(&tmp)
 	jsonData, err := json.Marshal(tmp)
@@ -130,5 +128,13 @@ func (h *Handler) InsertMessage(c echo.Context) error {
 	fmt.Println(req.Message)
 	err = h.worker.InsertMessage()
 
-	return c.JSON(http.StatusOK, all)
+	return c.JSON(http.StatusOK, err)
+}
+
+func (h *Handler) GetMessage(c echo.Context) error {
+	data, err := h.worker.GetMessage()
+	if err != nil {
+		return err
+	}
+	return response.Success(c, data.Data)
 }

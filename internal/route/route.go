@@ -21,4 +21,5 @@ func InitRoute(e *echo.Echo, h *handler.Handler) {
 
 	l := e.Group("/chat")
 	l.POST("/message", h.InsertMessage)
+	l.GET("/message", h.GetMessage)
 }

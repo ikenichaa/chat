@@ -37,6 +37,16 @@ func (w *workerService) InsertMessage() error {
 	return nil
 }
 
+func (w *workerService) GetMessage() (d.MessageResponse, error) {
+	var response = d.MessageResponse{}
+	fmt.Println("in service")
+	result, err := w.worker.GetMessage()
+	if err != nil {
+		return response, err
+	}
+	return result, nil
+}
+
 func Multiply(x, y int) int {
 	return x * y
 }
