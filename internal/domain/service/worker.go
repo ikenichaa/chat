@@ -18,15 +18,19 @@ func NewWorkerService(w WorkerConfig) *workerService {
 	return &workerService{worker: w.Worker}
 }
 
-func (w *workerService) GetAll() (d.WorkerResponse,error) {
-var response = d.WorkerResponse{}
+func (w *workerService) GetAll() (d.WorkerResponse, error) {
+	var response = d.WorkerResponse{}
 	result, err := w.worker.GetAll()
-	if err!= nil {
+	if err != nil {
 		return response, err
 	}
 	return result, nil
 }
 
-func Multiply(x,y int) int {
-	return x*y
+func (w *workerService) InsertMessage() error {
+	return nil
+}
+
+func Multiply(x, y int) int {
+	return x * y
 }

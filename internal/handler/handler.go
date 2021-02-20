@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"practice/golang/internal/domain"
@@ -20,6 +21,15 @@ type Worker struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
 	Age  int    `json:"age"`
+}
+
+type Chat struct {
+	User    string `json:"user"`
+	Message string `json:"message"`
+}
+
+type AllChat struct {
+	Data []Chat `json:"data"`
 }
 
 var (
@@ -98,4 +108,26 @@ func (h *Handler) GetAll(c echo.Context) error {
 		return err
 	}
 	return response.Success(c, data.Data)
+}
+
+func (h *Handler) InsertMessage(c echo.Context) error {
+	var req = Chat{}
+	var all = AllChat{}
+	tmp := echo.Map{}
+	c.Bind(&tmp)
+	jsonData, err := json.Marshal(tmp)
+	if err != nil {
+		return response.Error(c, err)
+	}
+
+	err = json.Unmarshal(jsonData, &req)
+
+	if err != nil {
+		return response.Error(c, err)
+	}
+	fmt.Println(req.User)
+	fmt.Println(req.Message)
+	all.Data = append(all.Data, req)
+
+	return c.JSON(http.StatusOK, all)
 }

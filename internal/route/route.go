@@ -18,4 +18,7 @@ func InitRoute(e *echo.Echo, h *handler.Handler) {
 	worker.DELETE("/workers/:id", h.DeleteWorker)
 	worker.POST("/input", h.Input)
 	worker.GET("/get-all", h.GetAll)
+
+	l := e.Group("/chat")
+	l.POST("/message", h.InsertMessage)
 }

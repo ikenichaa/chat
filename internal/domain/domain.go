@@ -10,3 +10,8 @@ type Worker struct {
 type WorkerResponse struct {
 	Data []Worker `json:"worker"`
 }
+
+type InsertMessage struct {
+	User    string `json:"user"`
+	Message string `json:"message"`
+}

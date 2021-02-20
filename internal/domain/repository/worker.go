@@ -2,8 +2,9 @@ package repository
 
 import (
 	"fmt"
-	"gorm.io/gorm"
 	d "practice/golang/internal/domain"
+
+	"gorm.io/gorm"
 )
 
 type workerRepository struct {
@@ -14,6 +15,12 @@ type workers struct {
 	ID   int
 	Name string
 	Age  int
+}
+
+type chat struct {
+	ID      int
+	Name    string
+	Message string
 }
 
 func (worker *workers) TableName() string {
@@ -28,13 +35,13 @@ func NewWorkerRepository(db *gorm.DB) *workerRepository {
 	}
 }
 
-func (r *workerRepository) GetAll() (d.WorkerResponse,error) {
+func (r *workerRepository) GetAll() (d.WorkerResponse, error) {
 	var (
-		user d.Worker
+		user    d.Worker
 		userAll d.WorkerResponse
 	)
 	rows, err := r.db.Model(&workers{}).Rows()
-	if err!=nil {
+	if err != nil {
 		return userAll, err
 	}
 	defer rows.Close()
@@ -43,5 +50,5 @@ func (r *workerRepository) GetAll() (d.WorkerResponse,error) {
 		r.db.ScanRows(rows, &user)
 		userAll.Data = append(userAll.Data, user)
 	}
-	return userAll,nil
+	return userAll, nil
 }

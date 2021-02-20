@@ -3,6 +3,7 @@ package domain
 type (
 	// WorkerService ...
 	WorkerService interface {
-		GetAll() (WorkerResponse,error)
+		GetAll() (WorkerResponse, error)
+		InsertMessage() error
 	}
 )
