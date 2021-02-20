@@ -90,6 +90,16 @@ export default {
   methods: {
     sendMessage() {
       console.log(this.message)
+      axios.post(`http://localhost:9999/chat/message`, {
+    user: 'Fred',
+    message: 'Flintstone'
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
     },
     connectServer() {
       console.log("connect to server")
