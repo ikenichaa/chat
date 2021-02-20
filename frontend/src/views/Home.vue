@@ -27,8 +27,9 @@
         dark
         min-width="1000"
       >
-        hi<br />
-        hi
+       <li v-for="item in get" :key="item.user">
+    {{ item.user }} -- {{item.message}}
+  </li>
       </v-card>
       <v-row>
         <v-text-field
@@ -54,7 +55,7 @@
   </v-app>
 </template>
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 const evtSource = new EventSource("https://chat-room-be.herokuapp.com", { withCredentials: true } );
 export default {
   name: "Home",
@@ -66,27 +67,25 @@ export default {
       name: "brown",
       server: "https://chat-room-be.herokuapp.com",
       message: "",
+      get: [],
     };
   },
   created() {
     const hash = Math.floor(Math.random() * 1000000) + 1000;
     console.log(hash);
     this.name = this.name + hash;
-    // axios.get(`http://localhost:9999/plate/worker/get-all`)
-    // .then(response => {
-    //   console.log("res: ")
-    //   console.log(response.data.data)
-    //   this.posts =response.data.data
-    //   // console.log(this.posts)
-    // })
-    // .catch(e => {
-    //   this.errors.push(e)
-    // })
   },
   mounted() {
-    // this.post = "mount"
-    // console.log("I am post: "+this.post)
-    // console.log(this.posts)
+    axios.get(`http://localhost:9999/chat/message`)
+    .then(response => {
+      console.log("res: ")
+      console.log(response.data.data)
+      this.get =response.data.data
+      // console.log(this.posts)
+    })
+    .catch(e => {
+      this.errors.push(e)
+    })
   },
   methods: {
     sendMessage() {
