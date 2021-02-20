@@ -91,8 +91,8 @@ export default {
     sendMessage() {
       console.log(this.message)
       axios.post(`http://localhost:9999/chat/message`, {
-    user: 'Fred',
-    message: 'Flintstone'
+    user: this.name,
+    message: this.message
   })
   .then(function (response) {
     console.log(response);
