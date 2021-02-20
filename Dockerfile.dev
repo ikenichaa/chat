@@ -1,0 +1,14 @@
+FROM golang:alpine
+ENV GOPATH /go
+
+RUN apk add git mercurial
+
+# Live Reloading
+RUN go get -u github.com/cosmtrek/air
+
+WORKDIR /go/src/backend
+COPY . .
+RUN go mod download -x
+
+ENTRYPOINT ["sh","./script/local_init.sh"]
+
