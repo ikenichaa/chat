@@ -28,6 +28,11 @@ func (worker *workers) TableName() string {
 
 }
 
+func (chat *chat) TableName() string {
+	return "chat"
+
+}
+
 // NewWorkerRepository ...
 func NewWorkerRepository(db *gorm.DB) *workerRepository {
 	return &workerRepository{
@@ -51,4 +56,11 @@ func (r *workerRepository) GetAll() (d.WorkerResponse, error) {
 		userAll.Data = append(userAll.Data, user)
 	}
 	return userAll, nil
+}
+
+func (r *workerRepository) InsertMessage() error {
+	user := chat{ID: 1, Name: "Ike", Message: "jaa"}
+	result := r.db.Create(&user)
+	fmt.Println(result)
+	return nil
 }

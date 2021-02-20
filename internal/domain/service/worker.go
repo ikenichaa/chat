@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	d "practice/golang/internal/domain"
 )
 
@@ -28,6 +29,11 @@ func (w *workerService) GetAll() (d.WorkerResponse, error) {
 }
 
 func (w *workerService) InsertMessage() error {
+	fmt.Println("in service")
+	err := w.worker.InsertMessage()
+	if err != nil {
+		return err
+	}
 	return nil
 }
 

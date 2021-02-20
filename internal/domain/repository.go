@@ -4,6 +4,6 @@ package domain
 type (
 	WorkerRepository interface {
 		GetAll() (WorkerResponse, error)
-		// InsertMessage() error
+		InsertMessage() error
 	}
 )
