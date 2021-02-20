@@ -37,7 +37,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    container_name: front-end
     volumes:
       - ./frontend:/app
     working_dir: /app
